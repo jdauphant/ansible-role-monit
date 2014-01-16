@@ -1,0 +1,27 @@
+---
+monit_web_interface: true
+monit_port: '2812'
+monit_listen_ip: 'localhost'
+monit_user: 'admin'
+monit_password: 'monit'
+
+monit_mail_servers: 'localhost' # you can set multiple server '192.168.0.1, backup.bar.baz port 10025, localhost'
+monit_alert_email: '' # 'manager@foo.bar' or 'manager@foo.bar only on { timeout } '
+monit_mail_format: '' # '{ from: monit@foo.bar }'
+
+monit_services_monitored:
+  - service:
+     template: generic
+     name: system
+  - service:
+     template: filesystem
+     name: var_fs
+     path: /var
+  - service:
+     template: filesystem
+     name: var_log_fs
+     path: /var/log
+  - service:
+     template: process
+     name: nginx
+     group: www
