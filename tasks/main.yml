@@ -18,6 +18,11 @@
    when: monit_services_monitored|lower != 'none'
    notify: reload monit
 
+ - name: check monit configuration file
+   shell: monit -t
+   register: result
+   changed_when: "result.rc != 0"
+
  - name: ensure monit is running
    service: name=monit state=running enabled=yes
 
