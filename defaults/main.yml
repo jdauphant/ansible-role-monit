@@ -11,8 +11,8 @@ monit_mail_format: '' # '{ from: monit@foo.bar }'
 
 monit_services_monitored:
   - service:
-     template: generic
-     name: system
+     template: process
+     name: nginx
   - service:
      template: filesystem
      name: var_fs
