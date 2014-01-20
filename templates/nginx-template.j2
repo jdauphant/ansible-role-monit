@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 check process nginx with pidfile /var/run/nginx.pid
-  start program = "service nginx start"
-  stop  program = "service nginx stop"
+  start program = "/usr/sbin/service nginx start"
+  stop  program = "/usr/sbin/service nginx stop"
   group www
 {% for k,v in item.service.iteritems() if k.find('host') != -1 %}
   if failed host {{ v.host }} port {{ v.port }}{% if v.port == 443 %}type tcpssl{% endif %} protocol http then restart
