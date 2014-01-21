@@ -16,7 +16,7 @@
    template: src="{{ item['service']['template'] }}-template.j2" dest="/etc/monit/conf.d/{{ item['service']['name'] }}.conf" mode=0600
    with_items: monit_services_monitored
    when: monit_services_monitored|lower != 'none'
-   notify: reload monit
+   notify: restart monit
 
  - name: check monit configuration file
    shell: monit -t
