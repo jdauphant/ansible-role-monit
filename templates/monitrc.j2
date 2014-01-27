@@ -123,8 +123,10 @@ set alert {{ monit_alert_email }}
 {% if monit_web_interface %}
 set httpd port {{ monit_port }} and
     use address {{ monit_listen_ip }}  # only accept connection from localhost
-    allow localhost        # allow localhost to connect to the server and
-    allow {{ monit_user }}:{{ monit_password }}      # require user 'admin' with password 'monit'
+{% for k in monit_web_allow %}
+    allow {{k}}
+{% endfor %} 
+
 {% endif %}
 #    allow @monit           # allow users of group 'monit' to connect (rw)
 #    allow @users readonly  # allow users of group 'users' to connect readonly
