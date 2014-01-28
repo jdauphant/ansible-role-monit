@@ -3,26 +3,34 @@
    apt:  pkg=monit state=installed
    when: ansible_os_family == 'Debian'
    tags: 
-    - package
-
+    - packages
+    - monit
 
  - name: create monit configuration
    template: src=monitrc.j2 dest=/etc/monit/monitrc mode=0600
    notify: reload monit
-   tags:
-    - config
+   tags: 
+    - configuration
+    - monit
 
  - name: create the configuration for monitored services
    template: src="{{ item['service']['template'] }}-template.j2" dest="/etc/monit/conf.d/{{ item['service']['name'] }}.conf" mode=0600
    with_items: monit_services_monitored
    when: monit_services_monitored|lower != 'none'
    notify: restart monit
+    - configuration
+    - monit
 
  - name: check monit configuration file
    shell: monit -t
    register: result
    changed_when: "result.rc != 0"
+   tags: 
+    - configuration
+    - monit
 
  - name: ensure monit is running
    service: name=monit state=running enabled=yes
-
+   tags: 
+    - service
+    - monit
