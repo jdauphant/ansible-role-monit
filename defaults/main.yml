@@ -18,7 +18,8 @@ monit_services_monitored:
      name: nginx
      group: www
      if_set:
-       - if failed localhost port 80 protocol http then restart
+       - if failed host localhost port 80 protocol http then restart
+       - if failed url http://localhost/isAlive" and content != "Is alive" then restart
        - if 5 restarts within 5 cycles then timeout
   - service:
      template: filesystem
