@@ -1,6 +1,10 @@
 # {{ ansible_managed }}
 check process {{ item.service.name }} with pidfile {{ item.service.pidfile|default("/var/run/"+item.service.name+".pid") }}
-  start program = "/usr/sbin/{{ item.service.start_program|default("service "+item.service.name+" start") }}"
-  stop  program = "/usr/sbin/{{ item.service.stop_program|default("service "+item.service.name+" stop") }}"
-  group {{ item.service.group|default(item.service.name) }} 
-  if 5 restarts within 5 cycles then timeout
+  start program = "{{ item.service.start_program|default("/usr/sbin/service "+item.service.name+" start") }}"
+  stop  program = "{{ item.service.stop_program|default("/usr/sbin/service "+item.service.name+" stop") }}"
+  group {{ item.service.group|default(item.service.name) }}
+{% set if_set =  item.service.if_set|default(["if 5 restarts within 5 cycles then timeout"]) %}
+{% for v in if_set %}
+  {{ v }}
+{% endfor %} 
+

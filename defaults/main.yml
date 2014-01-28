@@ -16,6 +16,10 @@ monit_services_monitored:
   - service:
      template: process
      name: nginx
+     group: www
+     if_set:
+       - if failed localhost port 80 protocol http then restart
+       - if 5 restarts within 5 cycles then timeout
   - service:
      template: filesystem
      name: var_fs
