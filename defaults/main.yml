@@ -4,7 +4,7 @@ monit_port: '2812'
 monit_listen_ip: 'localhost'
 monit_web_allow:
   - localhost readonly
-  - monit:monit_password readonly
+  - monit:monit_password read-only
 monit_user: 'admin'
 monit_password: 'monit'
 
