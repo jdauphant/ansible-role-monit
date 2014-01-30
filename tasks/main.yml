@@ -5,12 +5,12 @@
    tags: [packages,monit]
 
  - name: create monit configuration
-   template: src=monitrc.j2 dest=/etc/monit/monitrc mode=0600
+   template: src=monitrc.j2 dest={{monit_conf_dir}}/monitrc mode=0600
    notify: reload monit
    tags: [configuration,monit]
 
  - name: create the configuration for monitored services
-   template: src="{{ item['service']['template'] }}-template.j2" dest="/etc/monit/conf.d/{{ item['service']['name'] }}.conf" mode=0600
+   template: src="{{ item['service']['template'] }}-template.j2" dest="{{monit_conf_dir}}/conf.d/{{ item['service']['name'] }}.conf" mode=0600
    with_items: monit_services_monitored
    when: monit_services_monitored|lower != 'none'
    notify: restart monit

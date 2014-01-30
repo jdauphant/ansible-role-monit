@@ -8,6 +8,8 @@ monit_web_allow:
 monit_user: 'admin'
 monit_password: 'monit'
 
+monit_conf_dir: '/etc/monit'
+
 monit_mail_servers: 'localhost' # you can set multiple server '192.168.0.1, backup.bar.baz port 10025, localhost'
 monit_alert_email: '' # 'manager@foo.bar' or 'manager@foo.bar only on { timeout } '
 monit_mail_format: '' # '{ from: monit@foo.bar }'
