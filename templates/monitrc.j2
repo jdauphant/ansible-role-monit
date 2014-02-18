@@ -99,6 +99,8 @@ set eventqueue
 ## or sender using the MAIL-FORMAT statement. Macros such as $DATE, etc.
 ## are expanded at runtime. For example, to override the sender, use:
 #
+# set mail-format { from: monit@example.com }
+
 {% if monit_mail_format %}
   set mail-format {{ monit_mail_format }}
 {% endif %}
